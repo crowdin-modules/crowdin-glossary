@@ -13,7 +13,8 @@ module.exports = function (opts = {}) {
 class Glossary {
   constructor (opts) {
     const defaults = {
-      openAfterUpload: true
+      openAfterUpload: true,
+      languageCode: 'en'
     }
     Object.assign(this, defaults, opts)
 
@@ -55,7 +56,7 @@ class Glossary {
     fs.writeFileSync(glossaryFile, this.csv)
 
     const form = new FormData()
-    form.append('scheme', 'term_en,description_en')
+    form.append('scheme', `term_${this.languageCode},description_${this.languageCode}`)
     form.append('file', fs.createReadStream(glossaryFile))
     form.append('json', 'true')
 
